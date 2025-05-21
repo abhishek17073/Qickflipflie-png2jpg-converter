@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms of Use - QuickFlipFile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f2f2f2;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #0077cc;
+    }
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Terms of Use</h1>
+  <p>इस वेबसाइट पर मौजूद सभी टूल्स का उपयोग आपकी स्वयं की जिम्मेदारी पर होता है।</p>
+  <p>हमारे टूल्स केवल व्यक्तिगत, शैक्षिक और गैर-व्यावसायिक उपयोग के लिए उपलब्ध हैं।</p>
+  <p>हम डाटा सुरक्षा का पूरा ध्यान रखते हैं, लेकिन आपकी फाइलें अस्थायी रूप से सर्वर पर प्रोसेस की जाती हैं और सेव नहीं की जातीं।</p>
+  <p>किसी भी नुकसान या दुरुपयोग की स्थिति में हमारी कोई ज़िम्मेदारी नहीं होगी।</p>
+  <p>वेबसाइट का उपयोग करके आप हमारी <a href="privacyindex.html">Privacy Policy</a> और इन Terms को स्वीकार करते हैं।</p>
+  <p>अगर आपके कोई सवाल हैं, तो आप हमसे संपर्क कर सकते हैं।</p>
+</body>
+</html>
