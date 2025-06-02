@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML to PDF - QuickFlipFile</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: Arial; text-align: center; background: #f0f0f0; padding: 40px; }
+    textarea { width: 90%; height: 300px; margin: 20px 0; padding: 10px; font-size: 16px; }
+    button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>🌐 HTML to PDF Converter</h1>
+  <textarea id="htmlContent" placeholder="Enter HTML code here..."></textarea><br />
+  <button onclick="downloadPDF()">Convert & Download PDF</button>
+
+  <script>
+    function downloadPDF() {
+      const element = document.createElement("div");
+      element.innerHTML = document.getElementById("htmlContent").value;
+      html2pdf().from(element).save("converted.pdf");
+    }
+  </script>
+</body>
+</html>

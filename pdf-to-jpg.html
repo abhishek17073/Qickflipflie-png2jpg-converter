@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF to JPG Converter - QuickFlipFile</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+  <style>
+    body { font-family: Arial; text-align: center; background: #f2f2f2; padding: 40px; }
+    canvas { border: 1px solid #ccc; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>📄 PDF to JPG Converter</h1>
+  <p>Upload a PDF file to view and save as JPG</p>
+  <input type="file" id="pdfInput" accept="application/pdf" />
+  <canvas id="pdfCanvas"></canvas>
+  <br><br>
+  <button onclick="downloadImage()">Download JPG</button>
+
+  <script>
+    const canvas = document.getElementById("pdfCanvas");
+    const ctx = canvas.getContext("2d");
+
+    document.getElementById("pdfInput").addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const fileReader = new FileReader();
+      fileReader.onload = function() {
+        const typedArray = new Uint8Array(this.result);
+
+        pdfjsLib.getDocument(typedArray).promise.then(pdf => {
+          pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 1.5 });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            page.render({ canvasContext: ctx, viewport: viewport });
+          });
+        });
+      };
+      fileReader.readAsArrayBuffer(file);
+    });
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.download = 'converted.jpg';
+      link.href = canvas.toDataURL("image/jpeg");
+      link.click();
+    }
+  </script>
+</body>
+</html>
