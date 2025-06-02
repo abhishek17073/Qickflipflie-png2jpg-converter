@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Online Notepad - QuickFlipFile</title>
+  <style>
+    body { font-family: Arial; padding: 40px; background: #f0f0f0; text-align: center; }
+    textarea { width: 90%; height: 400px; font-size: 16px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    button { margin-top: 15px; padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>📝 Online Notepad</h1>
+  <textarea id="note" placeholder="Write your notes here..."></textarea>
+  <br />
+  <button onclick="saveNote()">💾 Save as TXT</button>
+
+  <script>
+    function saveNote() {
+      const text = document.getElementById("note").value;
+      const blob = new Blob([text], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.download = "note.txt";
+      link.href = URL.createObjectURL(blob);
+      link.click();
+    }
+  </script>
+</body>
+</html>
