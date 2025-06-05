@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image Compressor - QuickFlipFile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 30px;
+    }
+    .container {
+      background: #fff;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="file"], input[type="range"] {
+      margin: 15px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🗜️ Image Compressor</h1>
+    <p>Select a JPG or PNG image to compress it.</p>
+    <input type="file" id="imageInput" accept="image/*" />
+    <br />
+    <label for="qualityRange">Compression Quality (10% to 100%)</label><br />
+    <input type="range" id="qualityRange" min="10" max="100" value="70" />
+    <p id="qualityValue">70%</p>
+    <button onclick="compressImage()">Compress & Download</button>
+    <a id="downloadLink" style="display: none;">Download Compressed Image</a>
+  </div>
+
+  <script>
+    const qualityRange = document.getElementById("qualityRange");
+    const qualityValue = document.getElementById("qualityValue");
+
+    qualityRange.addEventListener("input", function () {
+      qualityValue.innerText = qualityRange.value + "%";
+    });
+
+    function compressImage() {
+      const input = document.getElementById("imageInput");
+      const file = input.files[0];
+      if (!file) return alert("Please select an image first.");
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function (event) {
+        const img = new Image();
+        img.src = event.target.result;
+
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+
+          const quality = qualityRange.value / 100;
+          const compressedData = canvas.toDataURL("image/jpeg", quality);
+
+          const link = document.getElementById("downloadLink");
+          link.href = compressedData;
+          link.download = "compressed-image.jpg";
+          link.style.display = "inline-block";
+          link.innerText = "Download Compressed Image";
+        };
+      };
+    }
+  </script>
+</body>
+</html>
