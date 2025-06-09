@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PNG to JPG Converter</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  input, button { margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>PNG to JPG Converter</h2>
+<input type="file" id="pngInput" accept="image/png" />
+<br />
+<button onclick="convertToJPG()">Convert to JPG</button>
+<br />
+<a id="downloadLink" style="display:none;" download="converted.jpg">Download JPG</a>
+<br />
+<img id="resultImg" style="margin-top:20px; max-width:300px;" />
+
+<script>
+function convertToJPG() {
+  const input = document.getElementById('pngInput');
+  if (!input.files || !input.files[0]) {
+    alert('Please select a PNG image first.');
+    return;
+  }
+  const file = input.files[0];
+
+  if (file.type !== 'image/png') {
+    alert('Please select a PNG file.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      // Create canvas same size as image
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      // Draw image on canvas
+      ctx.drawImage(img, 0, 0);
+
+      // Get JPG data URL from canvas
+      const jpgDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+
+      // Show preview image
+      const resultImg = document.getElementById('resultImg');
+      resultImg.src = jpgDataUrl;
+
+      // Show download link
+      const downloadLink = document.getElementById('downloadLink');
+      downloadLink.href = jpgDataUrl;
+      downloadLink.style.display = 'inline';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
